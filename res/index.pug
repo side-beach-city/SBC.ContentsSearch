@@ -1,0 +1,66 @@
+mixin nav-item(id, caption)
+  li.nav-item
+    a.nav-link(
+      data-toggle="tab",
+      role="tab",
+      id=`tabs_${id}`,
+      href=`#contents_${id}`,
+      aria-control=`contents_${id}`
+    ) #{caption}
+mixin tab(name)
+  .tab-pane.fade(
+    role="tabpanel",
+    id=`contents_${name}`,
+    aria-labelledby=`tabs_${name}`
+  )
+    block
+
+doctype 
+html(lang='ja')
+  head
+    meta(charset='utf-8')
+    title SBC.コンテンツサーチ
+    link(rel="stylesheet", href="https://cdn.honokak.osaka/honoka/4.3.1/css/bootstrap.min.css")
+    style
+      include index.css
+  body
+    .card
+      .card-header
+        h1 SBC.コンテンツサーチ
+        .form-group
+          label(for="text") 絞り込み
+          input#text.form-control(type="text")
+      ul.nav.nav-tabs.card-header-tabs(role="tablist")
+        +nav-item("sbcast", "SBCast.")
+        +nav-item("openmic", "SBC.オープンマイク")
+      .card-body
+        .tab-content
+          +tab("sbcast")
+            h2.d-none SBCast.
+            ul.list-group
+          +tab("openmic")
+            h2.d-none SBC.オープンマイク
+            ul.list-group
+
+    template#tmpl_sbcast_entry
+      li.list-group-item.d-flex.justify-content-between.align-items-center
+        .media
+          img.align-self-center
+          .media-title
+            h3: a(target="_blank")
+            p.text
+            ul.tags
+        span.badge.badge-primary.badge-pill
+
+    template#tmpl_youtube_entry
+      li.list-group-item
+        .media
+          img.align-self-center
+          .media-title
+            h3: a(target="_blank")
+            p.text
+  script 
+    include index.js
+  script(src="https://code.jquery.com/jquery-3.3.1.min.js") 
+  script(src="https://cdn.honokak.osaka/honoka/4.3.1/js/bootstrap.min.js") 
+  script(src="https://cdn.honokak.osaka/honoka/4.3.1/js/bootstrap.bundle.min.js") 
