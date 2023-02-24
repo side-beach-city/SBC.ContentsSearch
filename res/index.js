@@ -1,6 +1,4 @@
 document.body.onload = (e) => {
-  const entry_casts = [
-  ];
   const entry_youtube = [
   ];
   const sbcast = document.querySelector("#contents_sbcast ul");
@@ -49,3 +47,4 @@ function filtering(word, root){
     n.style.setProperty("display", s, "important");
   });
 }
+

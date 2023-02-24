@@ -1,3 +1,5 @@
 function doGet(request) {
-  return HtmlService.createHtmlOutputFromFile('res/index');
+  const template = HtmlService.createTemplateFromFile('res/index');
+  template.sbcast = `const entry_casts = ${JSON.stringify(getRSS())}`;
+  return template.evaluate();
 }
