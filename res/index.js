@@ -3,13 +3,15 @@ document.body.onload = (e) => {
   ];
   const sbcast = document.querySelector("#contents_sbcast ul");
   const openmic = document.querySelector("#contents_openmic ul");
-  const rexp = /([^(]+)\(([^)]*)\)/;
+  const rexp = /SBCast\.\s*(#\d+[^(]+)\(([^)]*)\)?/;
+  const rexp2 = /SBCast\.\s*(#\d+)[\s:]+(.*)/;
   entry_casts.forEach(e => {
     let tmpl = document.getElementById("tmpl_sbcast_entry").content.cloneNode(true);
     let m = rexp.exec(e.title);
+    if(!m) m = rexp2.exec(e.title);
     tmpl.querySelector("img").src = e.img;
     tmpl.querySelector("a").href = e.link;
-    tmpl.querySelector("a").textContent = m[1];
+    tmpl.querySelector("a").textContent = `SBCast.${m[1]}`;
     tmpl.querySelector("p").textContent = m[2];
     e.tags.forEach(t => {
       let li = document.createElement("li");
