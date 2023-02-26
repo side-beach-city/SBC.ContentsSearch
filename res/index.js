@@ -9,6 +9,7 @@ document.body.onload = (e) => {
     let tmpl = document.getElementById("tmpl_sbcast_entry").content.cloneNode(true);
     let m = rexp.exec(e.title);
     if(!m) m = rexp2.exec(e.title);
+    tmpl.querySelector("h3").title = `SBCast.${m[1]}${m[2]}`;
     tmpl.querySelector("img").src = e.img;
     tmpl.querySelector("a").href = e.link;
     tmpl.querySelector("a").textContent = `SBCast.${m[1]}`;
@@ -25,6 +26,7 @@ document.body.onload = (e) => {
   entry_youtube.forEach(e => {
     let tmpl = document.getElementById("tmpl_youtube_entry").content.cloneNode(true);
     let m = ytrexp.exec(e.title);
+    tmpl.querySelector("h3").title = e.title;
     tmpl.querySelector("img").src = e.img;
     tmpl.querySelector("a").href = e.link;
     tmpl.querySelector("a").textContent = m[1];
