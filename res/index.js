@@ -33,6 +33,8 @@ document.body.onload = (e) => {
     tmpl.querySelector("p").textContent = e.title;
     openmic.appendChild(tmpl); 
   });
+
+  document.getElementById("tabs_sbcast").click();
 }
 
 document.getElementById("text").addEventListener("input", (e) => {
@@ -40,8 +42,6 @@ document.getElementById("text").addEventListener("input", (e) => {
   filtering(text, document.querySelector("#contents_sbcast ul"));
   filtering(text, document.querySelector("#contents_openmic ul"));
 });
-
-document.getElementById("tabs_sbcast").click();
 
 function filtering(word, root){
   const w = word.toLowerCase();
