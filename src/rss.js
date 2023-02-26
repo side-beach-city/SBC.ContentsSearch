@@ -28,3 +28,22 @@ function getRSS() {
   Logger.log("Load End");
   return data;
 }
+
+function test(){
+  const rss = getRSS();
+  const rexp = /SBCast\.\s*(#\d+[^(]+)\(([^)]*)\)?/;
+  const rexp2 = /SBCast\.\s*(#\d+)[\s:]+(.*)/;
+  let success = true;
+  rss.forEach((e) => {
+    console.log(`> ${e.title}`);
+    let m = rexp.exec(e.title);
+    if(!m){
+      m = rexp2.exec(e.title);
+    }
+    let s = e.title && e.link && e.img && m && m.length == 3;
+    console.log(s ? "OK": "NG");
+    success = s;
+  });
+  console.log("getRSS() Finished");
+  console.log(`Test ${success ? "OK": "NG"}`);
+}
