@@ -29,6 +29,7 @@ document.body.onload = (e) => {
     tmpl.querySelector("a").href = e.link;
     tmpl.querySelector("a").textContent = m[1];
     tmpl.querySelector("p").textContent = e.title;
+    tmpl.querySelector("span").textContent = e.date;
     openmic.appendChild(tmpl); 
   });
 

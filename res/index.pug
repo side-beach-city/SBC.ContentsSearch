@@ -53,12 +53,13 @@ html(lang='ja')
         span.badge.badge-primary.badge-pill
 
     template#tmpl_openmic_entry
-      li.list-group-item
+      li.list-group-item.d-flex.justify-content-between.align-items-center
         .media
           img.align-self-center
           .media-title
             h3: a(target="_blank")
             p.text
+        span.badge.badge-primary.badge-pill
   script 
     include index.js
     <?!= sbcast ?>

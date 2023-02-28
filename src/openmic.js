@@ -12,7 +12,7 @@ function getData() {
         img: v.snippet.thumbnails.default.url,
         link: `https://www.youtube.com/watch?v=${v.snippet.resourceId.videoId}&list=${v.snippet.playlistId}`,
         description: v.snippet.description,
-        date: new Date(v.snippet.publishedAt)
+        date: new Date(v.snippet.publishedAt).toISOString().split("T").shift().replaceAll("-", "/")
       });
       Logger.log(v.snippet.title);
     }
