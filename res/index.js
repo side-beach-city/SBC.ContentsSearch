@@ -1,6 +1,4 @@
 document.body.onload = (e) => {
-  const entry_youtube = [
-  ];
   const sbcast = document.querySelector("#contents_sbcast ul");
   const openmic = document.querySelector("#contents_openmic ul");
   const rexp = /SBCast\.\s*(#\d+[^(]+)\(([^)]*)\)?/;
@@ -22,10 +20,10 @@ document.body.onload = (e) => {
     tmpl.querySelector("span").textContent = e.length;
     sbcast.appendChild(tmpl);
   });
-  const ytrexp = /(SBC\.オープンマイク\s#\d+)/;
-  entry_youtube.forEach(e => {
-    let tmpl = document.getElementById("tmpl_youtube_entry").content.cloneNode(true);
-    let m = ytrexp.exec(e.title);
+  const omrexp = /(SBC\.?オープンマイク\s*#\d+)/;
+  entry_openmic.forEach(e => {
+    let tmpl = document.getElementById("tmpl_openmic_entry").content.cloneNode(true);
+    let m = omrexp.exec(e.title);
     tmpl.querySelector("h3").title = e.title;
     tmpl.querySelector("img").src = e.img;
     tmpl.querySelector("a").href = e.link;
