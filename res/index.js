@@ -7,10 +7,10 @@ document.body.onload = (e) => {
     let tmpl = document.getElementById("tmpl_sbcast_entry").content.cloneNode(true);
     let m = rexp.exec(e.title);
     if(!m) m = rexp2.exec(e.title);
-    tmpl.querySelector("h3").title = `SBCast.${m[1]}${m[2]}`;
+    tmpl.querySelector("a.contentlink").title = `SBCast.${m[1]}${m[2]}`;
     tmpl.querySelector("img").src = e.img;
-    tmpl.querySelector("a").href = e.link;
-    tmpl.querySelector("a").textContent = `SBCast.${m[1]}`;
+    tmpl.querySelector("a.contentlink").href = e.link;
+    tmpl.querySelector("a.contentlink").textContent = `SBCast.${m[1]}`;
     tmpl.querySelector("p").textContent = m[2];
     e.tags.forEach(t => {
       let li = document.createElement("li");
@@ -24,10 +24,10 @@ document.body.onload = (e) => {
   entry_openmic.forEach(e => {
     let tmpl = document.getElementById("tmpl_openmic_entry").content.cloneNode(true);
     let m = omrexp.exec(e.title);
-    tmpl.querySelector("h3").title = e.title;
+    tmpl.querySelector("a.contentlink").title = e.title;
     tmpl.querySelector("img").src = e.img;
-    tmpl.querySelector("a").href = e.link;
-    tmpl.querySelector("a").textContent = m[1];
+    tmpl.querySelector("a.contentlink").href = e.link;
+    tmpl.querySelector("a.contentlink").textContent = m[1];
     tmpl.querySelector("p").textContent = e.title;
     tmpl.querySelector("span").textContent = e.date;
     openmic.appendChild(tmpl); 
