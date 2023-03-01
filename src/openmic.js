@@ -1,11 +1,18 @@
 const playlistId = "PLrPVslFukDQo7l5RCqAZtKDl6tUyMAFWH";
 
+function _getDataToken(token){
+  const params = {
+    playlistId: playlistId,
+  };
+  if(token) params["pageToken"] = token;
+  const list = YouTube.PlaylistItems.list(["snippet", "status"], params);
+  return list.nextPageToken ? list.items.concat(_getDataToken(list.nextPageToken)) : list.items;
+}
+
 function getData() {
-  const list = YouTube.PlaylistItems.list(["snippet", "status"], {
-    playlistId: playlistId
-  });
+  const list = _getDataToken();
   const data = [];
-  list.items.forEach((v) => {
+  list.forEach((v) => {
     if(v.status.privacyStatus == "public"){
       data.push({
         title: v.snippet.title,
@@ -20,7 +27,16 @@ function getData() {
   return data;
 }
 
-function test(){
+function testOMGetDataToken(){
+  const list = _getDataToken();
+  list.forEach(e => {
+    Logger.log(e.snippet.title);
+  });
+  Logger.log("_getDataToken() Finished");
+  Logger.log(`Test ${list.length >= 10 ? "OK": "NG"}`);
+
+}
+
   const data = getData();
   const ytrexp = /(SBC\.?オープンマイク\s*#\d+)/;
   let success = true;
