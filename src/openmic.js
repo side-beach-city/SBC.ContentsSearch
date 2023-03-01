@@ -37,6 +37,7 @@ function testOMGetDataToken(){
 
 }
 
+function testOMGetData(){
   const data = getData();
   const ytrexp = /(SBC\.?オープンマイク\s*#\d+)/;
   let success = true;

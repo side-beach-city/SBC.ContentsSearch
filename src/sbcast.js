@@ -29,7 +29,7 @@ function getRSS() {
   return data;
 }
 
-function test(){
+function testSCGetRSS(){
   const rss = getRSS();
   const rexp = /SBCast\.\s*(#\d+[^(]+)\(([^)]*)\)?/;
   const rexp2 = /SBCast\.\s*(#\d+)[\s:]+(.*)/;
