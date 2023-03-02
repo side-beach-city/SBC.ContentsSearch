@@ -7,10 +7,10 @@ document.body.onload = (e) => {
     let tmpl = document.getElementById("tmpl_sbcast_entry").content.cloneNode(true);
     let m = rexp.exec(e.title);
     if(!m) m = rexp2.exec(e.title);
-    tmpl.querySelector("h3").title = `SBCast.${m[1]}${m[2]}`;
+    tmpl.querySelector("a.contentlink").title = `SBCast.${m[1]}${m[2]}`;
     tmpl.querySelector("img").src = e.img;
-    tmpl.querySelector("a").href = e.link;
-    tmpl.querySelector("a").textContent = `SBCast.${m[1]}`;
+    tmpl.querySelector("a.contentlink").href = e.link;
+    tmpl.querySelector("a.contentlink").textContent = `SBCast.${m[1]}`;
     tmpl.querySelector("p").textContent = m[2];
     e.tags.forEach(t => {
       let li = document.createElement("li");
@@ -24,13 +24,40 @@ document.body.onload = (e) => {
   entry_openmic.forEach(e => {
     let tmpl = document.getElementById("tmpl_openmic_entry").content.cloneNode(true);
     let m = omrexp.exec(e.title);
-    tmpl.querySelector("h3").title = e.title;
+    tmpl.querySelector("a.contentlink").title = e.title;
     tmpl.querySelector("img").src = e.img;
-    tmpl.querySelector("a").href = e.link;
-    tmpl.querySelector("a").textContent = m[1];
+    tmpl.querySelector("a.contentlink").href = e.link;
+    tmpl.querySelector("a.contentlink").textContent = m[1];
     tmpl.querySelector("p").textContent = e.title;
     tmpl.querySelector("span").textContent = e.date;
     openmic.appendChild(tmpl); 
+  });
+
+  document.querySelectorAll(".copytoclip").forEach((e) => {
+    e.addEventListener("click", (v) => {
+      let media = v.target;
+      while(!media.classList.contains("media")){
+        media = media.parentNode;
+      }
+      const title = media.querySelector("a.contentlink").title;
+      const link = media.querySelector("a").href;
+      let copytext;
+      switch(v.target.dataset.type){
+        case "plain": copytext = `${title} ${link}`; break;
+        case "md": copytext = `[${title}](${link})`; break;
+        case "url": copytext = link;break;
+      }
+      const pre = document.createElement('pre');
+      try{
+        pre.style.userSelect = 'auto';
+        pre.textContent = copytext;
+        document.body.appendChild(pre);
+        document.getSelection().selectAllChildren(pre);
+        navigator.clipboard.writeText(pre.textContent);
+      }finally{
+        document.body.removeChild(pre);
+      }
+    });
   });
 
   document.getElementById("tabs_sbcast").click();
