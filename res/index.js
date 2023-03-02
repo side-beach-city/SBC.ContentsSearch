@@ -33,6 +33,33 @@ document.body.onload = (e) => {
     openmic.appendChild(tmpl); 
   });
 
+  document.querySelectorAll(".copytoclip").forEach((e) => {
+    e.addEventListener("click", (v) => {
+      let media = v.target;
+      while(!media.classList.contains("media")){
+        media = media.parentNode;
+      }
+      const title = media.querySelector("a.contentlink").title;
+      const link = media.querySelector("a").href;
+      let copytext;
+      switch(v.target.dataset.type){
+        case "plain": copytext = `${title} ${link}`; break;
+        case "md": copytext = `[${title}](${link})`; break;
+        case "url": copytext = link;break;
+      }
+      const pre = document.createElement('pre');
+      try{
+        pre.style.userSelect = 'auto';
+        pre.textContent = copytext;
+        document.body.appendChild(pre);
+        document.getSelection().selectAllChildren(pre);
+        navigator.clipboard.writeText(pre.textContent);
+      }finally{
+        document.body.removeChild(pre);
+      }
+    });
+  });
+
   document.getElementById("tabs_sbcast").click();
 }
 
