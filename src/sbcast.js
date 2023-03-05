@@ -26,11 +26,13 @@ function getRSS() {
           link: v.getChild("link").getText(),
           img: v.getChild("image", itunes).getAttribute("href").getValue(),
           length: v.getChild("duration", itunes).getText(),
+          description: v.getChild("description").getText(),
           tags: v.getChildren("category")
             .filter((c) => { return !c.getText().includes("SBCast.") && !c.getText().includes("支援") })
             .map((c) => { return c.getText() })
         });
         Logger.log(v.getChild("title").getText());
+        Logger.log(v.getChild("description").getText());
       }
     });
     Logger.log("Load End");
