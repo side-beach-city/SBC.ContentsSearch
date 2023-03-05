@@ -3,16 +3,21 @@ document.body.onload = (e) => {
   const openmic = document.querySelector("#contents_openmic ul");
   const rexp = /SBCast\.\s*(#\d+[^(]+)\(([^)]*)\)?/;
   const rexp2 = /SBCast\.\s*(#\d+)[\s:]+(.*)/;
-  entry_casts.forEach(e => {
+  entry_casts.forEach((e, index) => {
     let tmpl = document.getElementById("tmpl_sbcast_entry").content.cloneNode(true);
     let m = rexp.exec(e.title);
     if(!m) m = rexp2.exec(e.title);
+    const id = `SBCast_${index}`;
     tmpl.querySelector("a.contentlink").title = `SBCast.${m[1]}${m[2]}`;
     tmpl.querySelector("img").src = e.img;
     tmpl.querySelector("a.contentlink").href = e.link;
     tmpl.querySelector("a.contentlink").textContent = `SBCast.${m[1]}`;
-    tmpl.querySelector("p").textContent = m[2];
-    e.tags.forEach(t => {
+    tmpl.querySelector(".text > a").textContent = m[2];
+    tmpl.querySelector(".text > a").ariaControls = id;
+    tmpl.querySelector(".text > a").href = `#${id}`;
+    tmpl.querySelector(".text .collapse").id = id;
+    tmpl.querySelector(".text .card-body").textContent = e.description;
+      e.tags.forEach(t => {
       let li = document.createElement("li");
       li.textContent = t;
       tmpl.querySelector("ul").appendChild(li);  
@@ -21,14 +26,19 @@ document.body.onload = (e) => {
     sbcast.appendChild(tmpl);
   });
   const omrexp = /(SBC\.?オープンマイク\s*#\d+)/;
-  entry_openmic.forEach(e => {
+  entry_openmic.forEach((e, index) => {
     let tmpl = document.getElementById("tmpl_openmic_entry").content.cloneNode(true);
     let m = omrexp.exec(e.title);
+    const id = `OpenMic_${index}`;
     tmpl.querySelector("a.contentlink").title = e.title;
     tmpl.querySelector("img").src = e.img;
     tmpl.querySelector("a.contentlink").href = e.link;
     tmpl.querySelector("a.contentlink").textContent = m[1];
-    tmpl.querySelector("p").textContent = e.title;
+    tmpl.querySelector(".text > a").textContent = e.title;
+    tmpl.querySelector(".text > a").ariaControls = id;
+    tmpl.querySelector(".text > a").href = `#${id}`;
+    tmpl.querySelector(".text .collapse").id = id;
+    tmpl.querySelector(".text .card-body").innerHTML = e.description.replaceAll("\n", "<br>");
     tmpl.querySelector("span").textContent = e.date;
     openmic.appendChild(tmpl); 
   });

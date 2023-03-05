@@ -11,8 +11,8 @@ h3 .dropdown{
   display: inline-block;
 }
 
-p{
-  margin-bottom: 0;
+.text a{
+  color: black;
 }
 
 .media-title{
