@@ -6,6 +6,7 @@ function getHTML(){
   const template = HtmlService.createTemplateFromFile('res/index');
   template.sbcast = `const entry_casts = ${JSON.stringify(getRSS())};`;
   template.openmic = `const entry_openmic = ${JSON.stringify(getData())};`;
+  template.blog = `const entry_blog = ${JSON.stringify(getData())};`;
   const html = template.evaluate();
   const title = html.getContent().match(/<title>(.*?)<\/title>/i)[1];  
   html.setTitle(title);
