@@ -18,7 +18,7 @@ document.body.onload = (e) => {
     tmpl.querySelector(".text > a").href = `#${id}`;
     tmpl.querySelector(".text .collapse").id = id;
     tmpl.querySelector(".text .card-body").textContent = e.description;
-      e.tags.forEach(t => {
+    e.tags.forEach(t => {
       let li = document.createElement("li");
       li.textContent = t;
       tmpl.querySelector("ul").appendChild(li);  
