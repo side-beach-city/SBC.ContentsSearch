@@ -58,6 +58,11 @@ document.body.onload = (e) => {
     tmpl.querySelector(".text .collapse").id = id;
     tmpl.querySelector(".text .card-body").innerHTML = e.description.replaceAll("\n", "<br>");
     tmpl.querySelector("span").textContent = e.date;
+    e.tags.forEach(t => {
+      let li = document.createElement("li");
+      li.textContent = t;
+      tmpl.querySelector("ul").appendChild(li);  
+    });
     blog.appendChild(tmpl); 
   });
 
