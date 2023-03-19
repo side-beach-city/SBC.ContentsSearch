@@ -1,6 +1,7 @@
 let BLOGCACHE_KEY = "BLOG.Data";
 let BLOGCACHE_AMOUNT = 21600;
 const BLOG_DEFAULTIMG = "https://sbc.yokohama/cms/wp-content/uploads/2018/09/sbc-topbg3.jpg";
+const COLUMN_PLAYLISTID = "PLrPVslFukDQpbPnXce9DB52RKdDQvN6Ar";
 
 function getBLOGRSS() {
   const cache = CacheService.getScriptCache();
@@ -16,6 +17,7 @@ function _getBLOGRSS() {
   // XMLデータを取得
   const response = UrlFetchApp.fetch("https://sbc.yokohama/feed");
   const xml = response.getContentText();
+  const ytlist = getYoutubePlaylists(COLUMN_PLAYLISTID);
 
   // XMLデータをパース
   const document = XmlService.parse(xml);
@@ -27,10 +29,12 @@ function _getBLOGRSS() {
   const data = [];
 
   items.forEach((v) => {
+    const title = v.getChild("title").getText();
     let d = {
-      title : v.getChild("title").getText(),
+      title : title,
       link: v.getChild("link").getText(),
       date: new Date(v.getChild("pubDate").getText()).toISOString().split("T").shift().replaceAll("-", "/"),
+      isVoiceContents: isVoiceContentsExists(ytlist, title),
       description: v.getChild("description").getText(),
       tags: v.getChildren("category")
         .map((c) => { return c.getText() })
@@ -55,6 +59,18 @@ function getURLtoImageURL(htmlurl){
     Logger.log(e);
   }
 
+}
+
+function isVoiceContentsExists(YTItem, title){
+  return YTItem.some((yi) => { return yi.snippet.title.includes(title) });
+}
+
+function testIsVoiceContentsExists(){
+  const exceptTrue = isVoiceContentsExists(getYoutubePlaylists(COLUMN_PLAYLISTID), "オンラインの居場所づくり");
+  const exceptFalse = isVoiceContentsExists(getYoutubePlaylists(COLUMN_PLAYLISTID), "ABCDEFGHIJKLMNOP");
+  console.log("isVoiceContentsExists() Finished.");
+  console.log(`exceptTrue ${exceptTrue ? "OK" : "NG"}`);
+  console.log(`exceptFalse ${!exceptFalse ? "OK" : "NG"}`);
 }
 
 function testBLOGCache(){
