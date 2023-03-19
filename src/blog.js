@@ -35,7 +35,7 @@ function _getBLOGRSS() {
       title : title,
       link: v.getChild("link").getText(),
       date: new Date(v.getChild("pubDate").getText()).toISOString().split("T").shift().replaceAll("-", "/"),
-      isVoiceContents: vc != undefined,
+      hasVoiceContents: vc != undefined,
       voiceContentsURL: vc ? `https://www.youtube.com/watch?v=${vc.snippet.resourceId.videoId}&list=${vc.snippet.playlistId}` : "",
       description: v.getChild("description").getText(),
       tags: v.getChildren("category")
