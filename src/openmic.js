@@ -1,15 +1,6 @@
-const playlistId = "PLrPVslFukDQo7l5RCqAZtKDl6tUyMAFWH";
+const OPENMIC_PLAYLISTID = "PLrPVslFukDQo7l5RCqAZtKDl6tUyMAFWH";
 let OMCACHE_KEY = "OpenMic.Data";
 let OMCACHE_AMOUNT = 21600;
-
-function _getDataToken(token){
-  const params = {
-    playlistId: playlistId,
-  };
-  if(token) params["pageToken"] = token;
-  const list = YouTube.PlaylistItems.list(["snippet", "status"], params);
-  return list.nextPageToken ? list.items.concat(_getDataToken(list.nextPageToken)) : list.items;
-}
 
 function getData() {
   const cache = CacheService.getScriptCache();
@@ -17,7 +8,7 @@ function getData() {
   if(c != null){
     return JSON.parse(c);
   }else{
-    const list = _getDataToken();
+    const list = getYoutubePlaylists(OPENMIC_PLAYLISTID);
     const data = [];
     list.forEach((v) => {
       if(v.status.privacyStatus == "public"){
@@ -45,16 +36,6 @@ function testOMCache(){
   const cached = getData();
   console.log("getRSS() Finished");
   console.log(`Test ${JSON.stringify(noCache) == JSON.stringify(cached) ? "OK": "NG"}`);
-}
-
-function testOMGetDataToken(){
-  const list = _getDataToken();
-  list.forEach(e => {
-    Logger.log(e.snippet.title);
-  });
-  Logger.log("_getDataToken() Finished");
-  Logger.log(`Test ${list.length >= 10 ? "OK": "NG"}`);
-
 }
 
 function testOMGetData(){
