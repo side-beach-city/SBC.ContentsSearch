@@ -58,7 +58,8 @@ document.body.onload = (e) => {
     tmpl.querySelector(".text .collapse").id = id;
     tmpl.querySelector(".text .card-body").innerHTML = e.description.replaceAll("\n", "<br>");
     tmpl.querySelector("span.badge").textContent = e.date;
-    tmpl.querySelector("span.hasVoice").style.display = e.isVoiceContents ? "" : "none";
+    tmpl.querySelector("span.hasVoice").style.display = e.hasVoiceContents ? "" : "none";
+    tmpl.querySelector("span.hasVoice > a.voiceURL").href = e.voiceContentsURL;
     e.tags.forEach(t => {
       let li = document.createElement("li");
       li.textContent = t;
