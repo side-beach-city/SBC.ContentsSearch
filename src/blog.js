@@ -62,7 +62,7 @@ function getURLtoImageURL(htmlurl){
 }
 
 function isVoiceContentsExists(YTItem, title){
-  return YTItem.some((yi) => { return yi.snippet.title.includes(title) });
+  return YTItem.find((yi) => { return yi.snippet.title.includes(title) });
 }
 
 function testIsVoiceContentsExists(){
