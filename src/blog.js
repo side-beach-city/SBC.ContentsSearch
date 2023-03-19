@@ -30,11 +30,13 @@ function _getBLOGRSS() {
 
   items.forEach((v) => {
     const title = v.getChild("title").getText();
+    const vc = getVoiceContents(ytlist, title);
     let d = {
       title : title,
       link: v.getChild("link").getText(),
       date: new Date(v.getChild("pubDate").getText()).toISOString().split("T").shift().replaceAll("-", "/"),
-      isVoiceContents: isVoiceContentsExists(ytlist, title),
+      isVoiceContents: vc != undefined,
+      voiceContentsURL: vc ? `https://www.youtube.com/watch?v=${vc.snippet.resourceId.videoId}&list=${vc.snippet.playlistId}` : "",
       description: v.getChild("description").getText(),
       tags: v.getChildren("category")
         .map((c) => { return c.getText() })
@@ -61,13 +63,13 @@ function getURLtoImageURL(htmlurl){
 
 }
 
-function isVoiceContentsExists(YTItem, title){
+function getVoiceContents(YTItem, title){
   return YTItem.find((yi) => { return yi.snippet.title.includes(title) });
 }
 
 function testIsVoiceContentsExists(){
-  const exceptTrue = isVoiceContentsExists(getYoutubePlaylists(COLUMN_PLAYLISTID), "オンラインの居場所づくり");
-  const exceptFalse = isVoiceContentsExists(getYoutubePlaylists(COLUMN_PLAYLISTID), "ABCDEFGHIJKLMNOP");
+  const exceptTrue = getVoiceContents(getYoutubePlaylists(COLUMN_PLAYLISTID), "オンラインの居場所づくり");
+  const exceptFalse = getVoiceContents(getYoutubePlaylists(COLUMN_PLAYLISTID), "ABCDEFGHIJKLMNOP");
   console.log("isVoiceContentsExists() Finished.");
   console.log(`exceptTrue ${exceptTrue ? "OK" : "NG"}`);
   console.log(`exceptFalse ${!exceptFalse ? "OK" : "NG"}`);
