@@ -1,6 +1,7 @@
 document.body.onload = (e) => {
   const sbcast = document.querySelector("#contents_sbcast ul");
   const openmic = document.querySelector("#contents_openmic ul");
+  const blog = document.querySelector("#contents_blog ul");
   const rexp = /SBCast\.\s*(#\d+[^(]+)\(([^)]*)\)?/;
   const rexp2 = /SBCast\.\s*(#\d+)[\s:]+(.*)/;
   entry_casts.forEach((e, index) => {
@@ -17,7 +18,7 @@ document.body.onload = (e) => {
     tmpl.querySelector(".text > a").href = `#${id}`;
     tmpl.querySelector(".text .collapse").id = id;
     tmpl.querySelector(".text .card-body").textContent = e.description;
-      e.tags.forEach(t => {
+    e.tags.forEach(t => {
       let li = document.createElement("li");
       li.textContent = t;
       tmpl.querySelector("ul").appendChild(li);  
@@ -41,6 +42,30 @@ document.body.onload = (e) => {
     tmpl.querySelector(".text .card-body").innerHTML = e.description.replaceAll("\n", "<br>");
     tmpl.querySelector("span").textContent = e.date;
     openmic.appendChild(tmpl); 
+  });
+  const blogrexp = /^([^\n。]+(?:[\n。]))/;
+  entry_blog.forEach(async(e, index) => {
+    let tmpl = document.getElementById("tmpl_blog_entry").content.cloneNode(true);
+    let m = blogrexp.exec(e.description);
+    const id = `Blog_${index}`;
+    tmpl.querySelector("a.contentlink").title = e.title;
+    tmpl.querySelector("img").src = e.img;
+    tmpl.querySelector("a.contentlink").href = e.link;
+    tmpl.querySelector("a.contentlink").textContent = e.title;
+    tmpl.querySelector(".text > a").textContent = m[1];
+    tmpl.querySelector(".text > a").ariaControls = id;
+    tmpl.querySelector(".text > a").href = `#${id}`;
+    tmpl.querySelector(".text .collapse").id = id;
+    tmpl.querySelector(".text .card-body").innerHTML = e.description.replaceAll("\n", "<br>");
+    tmpl.querySelector("span.badge").textContent = e.date;
+    tmpl.querySelector("span.hasVoice").style.display = e.hasVoiceContents ? "" : "none";
+    tmpl.querySelector("span.hasVoice > a.voiceURL").href = e.voiceContentsURL;
+    e.tags.forEach(t => {
+      let li = document.createElement("li");
+      li.textContent = t;
+      tmpl.querySelector("ul").appendChild(li);  
+    });
+    blog.appendChild(tmpl); 
   });
 
   document.querySelectorAll(".copytoclip").forEach((e) => {
