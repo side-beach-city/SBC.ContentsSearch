@@ -67,12 +67,12 @@ function getVoiceContents(YTItem, title){
   return YTItem.find((yi) => { return yi.snippet.title.includes(title) });
 }
 
-function testIsVoiceContentsExists(){
+function testGetVoiceContents(){
   const exceptTrue = getVoiceContents(getYoutubePlaylists(COLUMN_PLAYLISTID), "オンラインの居場所づくり");
   const exceptFalse = getVoiceContents(getYoutubePlaylists(COLUMN_PLAYLISTID), "ABCDEFGHIJKLMNOP");
   console.log("isVoiceContentsExists() Finished.");
-  console.log(`exceptTrue ${exceptTrue ? "OK" : "NG"}`);
-  console.log(`exceptFalse ${!exceptFalse ? "OK" : "NG"}`);
+  console.log(`exceptTrue ${exceptTrue != undefined ? "OK" : "NG"}`);
+  console.log(`exceptFalse ${exceptFalse == undefined ? "OK" : "NG"}`);
 }
 
 function testBLOGCache(){
