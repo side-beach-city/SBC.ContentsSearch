@@ -1,6 +1,10 @@
 h1{
   font-size: 16pt;
 }
+h1 > span.version {
+  font-size: 70%;
+  color: gray;
+}
 li.list-group-item img{
   width: 64px;
 }

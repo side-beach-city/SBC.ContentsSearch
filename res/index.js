@@ -1,4 +1,7 @@
+const VERSION = "1.1.0";
+
 document.body.onload = (e) => {
+  document.querySelector("h1 > span.version").textContent += VERSION;
   const sbcast = document.querySelector("#contents_sbcast ul");
   const openmic = document.querySelector("#contents_openmic ul");
   const blog = document.querySelector("#contents_blog ul");
