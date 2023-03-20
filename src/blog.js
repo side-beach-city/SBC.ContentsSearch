@@ -23,7 +23,7 @@ function _getBLOGRSS() {
   const document = XmlService.parse(xml);
   const root = document.getRootElement();
   const itunes = XmlService.getNamespace("http://www.itunes.com/dtds/podcast-1.0.dtd");
-  const items = root.getChild("channel").getChildren("item").filter(v => !v.getChild("summary", itunes)).slice(0, 20);
+  const items = root.getChild("channel").getChildren("item").filter(v => !v.getChild("summary", itunes));
 
   Logger.log("RSS Load Start");
   const data = [];
