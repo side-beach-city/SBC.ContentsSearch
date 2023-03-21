@@ -12,3 +12,11 @@ function testGetYoutubePlaylists(playlistId) {
   console.log("getYoutubePlaylists() Finished.")
   console.log(`Test ${list.length > 0 ? "OK" : "NG"}`);
 }
+
+function cacheSize(){
+  const cache = CacheService.getScriptCache();
+  [SCCACHE_KEY, OMCACHE_KEY, BLOGCACHE_KEY].forEach((n) => {
+    console.log(`${n}:${cache.get(n).length}byte(s)`);
+  });
+
+}
