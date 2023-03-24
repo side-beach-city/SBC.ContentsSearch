@@ -1,5 +1,6 @@
 let SCCACHE_KEY = "SBCast.Data";
 let SCCACHE_AMOUNT = 21600;
+const SBCAST_DEFAULTIMG = "https://sbc.yokohama/cms/wp-content/uploads/powerpress/cover.png";
 
 function getRSS() {
   const cache = CacheService.getScriptCache();
@@ -24,7 +25,7 @@ function getRSS() {
         data.push({
           title : v.getChild("title").getText(),
           link: v.getChild("link").getText(),
-          img: v.getChild("image", itunes).getAttribute("href").getValue(),
+          img: v.getChild("image", itunes) ? v.getChild("image", itunes).getAttribute("href").getValue() : SBCAST_DEFAULTIMG,
           length: v.getChild("duration", itunes).getText(),
           description: v.getChild("description").getText(),
           tags: v.getChildren("category")
