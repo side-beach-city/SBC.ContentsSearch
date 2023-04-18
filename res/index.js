@@ -1,4 +1,4 @@
-const VERSION = "1.1.0";
+const VERSION = "1.1.1";
 
 document.body.onload = (e) => {
   document.querySelector("h1 > span.version").textContent += VERSION;
