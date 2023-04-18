@@ -78,7 +78,7 @@ document.body.onload = (e) => {
         media = media.parentNode;
       }
       const title = media.querySelector("a.contentlink").title;
-      const link = media.querySelector("a").href;
+      const link = media.querySelector("a.contentlink").href;
       let copytext;
       switch(v.target.dataset.type){
         case "plain": copytext = `${title} ${link}`; break;
