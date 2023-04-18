@@ -105,6 +105,7 @@ document.getElementById("text").addEventListener("input", (e) => {
   const text = document.getElementById("text").value;
   filtering(text, document.querySelector("#contents_sbcast ul"));
   filtering(text, document.querySelector("#contents_openmic ul"));
+  filtering(text, document.querySelector("#contents_blog ul"));
 });
 
 function filtering(word, root){
