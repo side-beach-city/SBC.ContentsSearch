@@ -55,7 +55,7 @@ document.body.onload = (e) => {
     tmpl.querySelector("img").src = e.img;
     tmpl.querySelector("a.contentlink").href = e.link;
     tmpl.querySelector("a.contentlink").textContent = e.title;
-    tmpl.querySelector(".text > a").textContent = m[1];
+    tmpl.querySelector(".text > a").textContent = m[1].length > 20 ? `${m[1].slice(0,20)}...` : m[1];
     tmpl.querySelector(".text > a").ariaControls = id;
     tmpl.querySelector(".text > a").href = `#${id}`;
     tmpl.querySelector(".text .collapse").id = id;
